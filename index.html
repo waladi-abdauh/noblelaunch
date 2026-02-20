@@ -14,32 +14,35 @@
             align-items: center;
             height: 100vh;
             background-color: #1a1a1a;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
             overflow: hidden;
         }
 
         #ceremony-container {
             text-align: center;
-            transition: all 0.5s ease;
+            padding: 20px;
+            max-width: 800px;
         }
 
         /* Gaya Tombol Utama */
         .btn-old-web {
-            padding: 15px 30px;
-            font-size: 1.2rem;
+            padding: 18px 35px;
+            font-size: 1.1rem;
             background-color: transparent;
             color: #d4af37; /* Warna emas */
             border: 2px solid #d4af37;
             cursor: pointer;
-            transition: 0.3s;
+            transition: all 0.3s ease;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 1.5px;
+            line-height: 1.5;
         }
 
         .btn-old-web:hover {
             background-color: #d4af37;
             color: #1a1a1a;
+            box-shadow: 0 0 20px rgba(212, 175, 55, 0.4);
         }
 
         /* Gaya Hitung Mundur */
@@ -48,23 +51,21 @@
             font-weight: bold;
             display: none;
             color: #d4af37;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
         }
 
-        /* Animasi Transisi Website Baru */
-        .fade-out {
-            opacity: 0;
-            transform: scale(0.9);
-        }
-
+        /* Gaya Pesan Baru */
         .new-web-reveal {
-            font-size: 2rem;
+            font-size: 1.8rem;
             display: none;
-            animation: fadeIn 2s forwards;
+            color: #d4af37;
+            line-height: 1.4;
+            animation: fadeIn 1.5s ease-in forwards;
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
@@ -72,13 +73,14 @@
 
     <div id="ceremony-container">
         <button id="startBtn" class="btn-old-web" onclick="startCeremony()">
-            Kunjungi noblepropertiesasia.com
+            Visit noblepropertiesasia.com
         </button>
 
         <div id="countdown">10</div>
 
         <div id="welcomeMsg" class="new-web-reveal">
-            WELCOME TO NOBLEASIAID.COM
+            <strong>nobleasiaid.com</strong> is now our official website — <br>
+            please continue your visit here for the latest updates
         </div>
     </div>
 
@@ -86,7 +88,6 @@
         function startCeremony() {
             const btn = document.getElementById('startBtn');
             const countdownEl = document.getElementById('countdown');
-            const welcomeMsg = document.getElementById('welcomeMsg');
             
             // Sembunyikan tombol
             btn.style.display = 'none';
@@ -113,10 +114,10 @@
             countdownEl.style.display = 'none';
             welcomeMsg.style.display = 'block';
 
-            // Efek Cracker / Confetti
-            var duration = 5 * 1000;
+            // Konfigurasi Kembang Api (Confetti)
+            var duration = 6 * 1000; // Berjalan selama 6 detik
             var animationEnd = Date.now() + duration;
-            var defaults = { startVelocity: 30, spread: 360, ticks: 60, zIndex: 0 };
+            var defaults = { startVelocity: 35, spread: 360, ticks: 60, zIndex: 999 };
 
             function randomInRange(min, max) {
               return Math.random() * (max - min) + min;
@@ -126,17 +127,4 @@
               var timeLeft = animationEnd - Date.now();
 
               if (timeLeft <= 0) {
-                clearInterval(interval);
-                // Redirect ke website baru setelah animasi selesai
-                window.location.href = "https://nobleasiaid.com";
-                return;
-              }
-
-              var particleCount = 50 * (timeLeft / duration);
-              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 } }));
-              confetti(Object.assign({}, defaults, { particleCount, origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 } }));
-            }, 250);
-        }
-    </script>
-</body>
-</html>
+                clearInterval
